@@ -1,17 +1,19 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+// Page text lives in the MDX file
+import { frontmatter as page } from '../../content/pages/portfolio.mdx';
 
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
 const samples = (await getCollection('samples')).sort((a, b) => a.data.order - b.data.order);
 ---
 
-<Base title="Portfolio" description="Projects and writing samples by Alina Desyatnikova.">
+<Base title="Portfolio" description={page.description}>
   <div class="container">
     <header class="page-head">
-      <span class="eyebrow">Portfolio</span>
-      <h1>Projects & writing samples</h1>
-      <p class="lead">Things I've built, documented, and designed — from API docs to interactive tools.</p>
+      <span class="eyebrow">{page.eyebrow}</span>
+      <h1>{page.headline}</h1>
+      <p class="lead">{page.lead}</p>
     </header>
 
     <section class="section">

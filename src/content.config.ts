@@ -4,7 +4,7 @@ import { z } from 'astro/zod';
 
 // Portfolio projects — each gets its own case-study page.
 const projects = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/projects' }),
   schema: z.object({
     title: z.string(),
     summary: z.string(),
@@ -17,7 +17,7 @@ const projects = defineCollection({
 
 // Writing samples published elsewhere — shown as cards linking out.
 const samples = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/samples' }),
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/samples' }),
   schema: z.object({
     title: z.string(),
     summary: z.string(),
@@ -29,7 +29,7 @@ const samples = defineCollection({
 
 // Conference talks, webinars, podcasts, videos.
 const talks = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/talks' }),
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/talks' }),
   schema: z.object({
     title: z.string(),
     event: z.string(),
@@ -44,7 +44,7 @@ const talks = defineCollection({
 
 // Blog posts — mostly republished LinkedIn articles.
 const posts = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/posts' }),
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/posts' }),
   schema: z.object({
     title: z.string(),
     description: z.string(),

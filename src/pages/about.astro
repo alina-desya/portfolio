@@ -1,25 +1,16 @@
 ---
 import Base from '../layouts/Base.astro';
 import { site } from '../site.config';
-
-// TODO: replace with your real experience
-const experience = [
-  { period: '20XX – now', role: 'Senior Technical Writer', org: 'Company name', text: 'One line on scope and impact.' },
-  { period: '20XX – 20XX', role: 'Technical Writer', org: 'Company name', text: 'One line on scope and impact.' },
-];
-
-const skills = [
-  'API documentation (OpenAPI)', 'Docs-as-code', 'Information architecture', 'Knowledge management',
-  'Content strategy', 'Taxonomy & metadata', 'AI-assisted documentation', 'Developer experience',
-];
+// Page text lives in the MDX file
+import Bio, { frontmatter as page } from '../content/pages/about.mdx';
 ---
 
-<Base title="About" description={`About ${site.name}, ${site.role}.`}>
+<Base title="About" description={page.description}>
   <div class="container">
     <header class="page-head about-head">
       <div>
-        <span class="eyebrow">About</span>
-        <h1>Writer, architect, translator between people and systems.</h1>
+        <span class="eyebrow">{page.eyebrow}</span>
+        <h1>{page.headline}</h1>
         <div class="actions">
           <a class="btn btn-primary" href={site.cv} download>Download CV (PDF)</a>
           <a class="btn btn-secondary" href="/contact/">Get in touch</a>
@@ -29,25 +20,15 @@ const skills = [
     </header>
 
     <section class="section prose">
-      <!-- TODO: your bio. 2–4 short paragraphs: what you do, how you think, what you're known for. -->
-      <p class="lead">
-        I'm a Senior Technical Writer and Knowledge Architect. I design documentation and knowledge systems that help
-        people — and increasingly AI — find the right answer the first time.
-      </p>
-      <p>
-        Placeholder bio: add a paragraph about your background, the kinds of products and teams you've worked with, and
-        what you care about most in your work.
-      </p>
-      <p>
-        Placeholder: a short personal note — what you do outside work, where you're based, what you're exploring now.
-      </p>
+      <p class="lead">{page.lead}</p>
+      <Bio />
     </section>
 
     <section class="section two-col">
       <div>
         <h2>Experience</h2>
         <ol class="timeline">
-          {experience.map((e) => (
+          {page.experience.map((e) => (
             <li>
               <span class="muted period">{e.period}</span>
               <h3>{e.role} <span class="muted">· {e.org}</span></h3>
@@ -58,7 +39,7 @@ const skills = [
       </div>
       <div>
         <h2>Skills</h2>
-        <ul class="tags skills">{skills.map((s) => <li class="tag">{s}</li>)}</ul>
+        <ul class="tags skills">{page.skills.map((s) => <li class="tag">{s}</li>)}</ul>
       </div>
     </section>
   </div>

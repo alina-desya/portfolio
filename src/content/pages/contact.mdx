@@ -1,0 +1,22 @@
+---
+description: Get in touch with Alina Desyatnikova.
+eyebrow: Contact
+headline: Let's talk.
+# One card per reason. `subject` pre-fills the email subject; `link` adds a second button.
+reasons:
+  - title: Hiring
+    text: Senior technical writing or knowledge architecture roles.
+    subject: Job opportunity
+    link: { href: /files/cv.pdf, label: Download CV }
+  - title: Projects
+    text: Documentation, knowledge base, or content strategy work.
+    subject: Project inquiry
+  - title: Speaking
+    text: Conferences, webinars, podcasts, and workshops.
+    subject: Speaking invitation
+    link: { href: /speaking/kit/, label: Speaker kit }
+---
+import { site } from '../../site.config';
+
+The fastest way to reach me is email: <a href={`mailto:${site.email}`}>{site.email}</a>. I'm also on
+<a href={site.links.linkedin}>LinkedIn</a>.

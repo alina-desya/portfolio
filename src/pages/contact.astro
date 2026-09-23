@@ -1,33 +1,26 @@
 ---
 import Base from '../layouts/Base.astro';
 import { site } from '../site.config';
-
-const reasons = [
-  { title: 'Hiring', text: 'Senior technical writing or knowledge architecture roles.', subject: 'Job opportunity', extra: { href: site.cv, label: 'Download CV' } },
-  { title: 'Projects', text: 'Documentation, knowledge base, or content strategy work.', subject: 'Project inquiry' },
-  { title: 'Speaking', text: 'Conferences, webinars, podcasts, and workshops.', subject: 'Speaking invitation', extra: { href: '/speaking/kit/', label: 'Speaker kit' } },
-];
+// Page text lives in the MDX file
+import Intro, { frontmatter as page } from '../content/pages/contact.mdx';
 ---
 
-<Base title="Contact" description={`Get in touch with ${site.name}.`}>
+<Base title="Contact" description={page.description}>
   <div class="container">
     <header class="page-head">
-      <span class="eyebrow">Contact</span>
-      <h1>Let's talk.</h1>
-      <p class="lead">
-        The fastest way to reach me is email: <a href={`mailto:${site.email}`}>{site.email}</a>. I'm also on
-        <a href={site.links.linkedin}>LinkedIn</a>.
-      </p>
+      <span class="eyebrow">{page.eyebrow}</span>
+      <h1>{page.headline}</h1>
+      <div class="lead"><Intro /></div>
     </header>
 
     <section class="section grid">
-      {reasons.map((r) => (
+      {page.reasons.map((r) => (
         <div class="card">
           <h3>{r.title}</h3>
           <p>{r.text}</p>
           <div class="links">
             <a class="btn btn-primary" href={`mailto:${site.email}?subject=${encodeURIComponent(r.subject)}`}>Email me</a>
-            {r.extra && <a class="btn btn-secondary" href={r.extra.href}>{r.extra.label}</a>}
+            {r.link && <a class="btn btn-secondary" href={r.link.href}>{r.link.label}</a>}
           </div>
         </div>
       ))}

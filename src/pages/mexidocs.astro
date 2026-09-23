@@ -1,13 +1,15 @@
 ---
 import Base from '../layouts/Base.astro';
+// Page text lives in the MDX file
+import Intro, { frontmatter as page } from '../content/pages/mexidocs.mdx';
 ---
 
-<Base title="MexiDocs" description="MexiDocs — stickers for people who write the docs.">
+<Base title="MexiDocs" description={page.description}>
   <div class="container">
     <header class="page-head">
-      <span class="eyebrow">MexiDocs</span>
-      <h1>Stickers for people who write the docs.</h1>
-      <p class="lead">Coming soon. <!-- TODO: story behind MexiDocs, sticker gallery, how to get them --></p>
+      <span class="eyebrow">{page.eyebrow}</span>
+      <h1>{page.headline}</h1>
+      <div class="lead"><Intro /></div>
     </header>
     <div class="soon">
       <span>🌮</span><span>📚</span><span>🌵</span>

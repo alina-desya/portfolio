@@ -4,16 +4,12 @@ import Base from '../layouts/Base.astro';
 import TalkItem from '../components/TalkItem.astro';
 import NewsletterCTA from '../components/NewsletterCTA.astro';
 import { site } from '../site.config';
+// Page text lives in the MDX file
+import { frontmatter as page } from '../content/pages/home.mdx';
 
 const projects = (await getCollection('projects', (p) => p.data.featured)).sort((a, b) => a.data.order - b.data.order);
 const talks = (await getCollection('talks')).sort((a, b) => +b.data.date - +a.data.date).slice(0, 3);
 const posts = (await getCollection('posts', (p) => !p.data.draft)).sort((a, b) => +b.data.date - +a.data.date).slice(0, 3);
-
-const pillars = [
-  { title: 'Technical writing', text: 'API references, developer guides, and product docs that are accurate, findable, and pleasant to read.' },
-  { title: 'Knowledge architecture', text: 'Information models, taxonomies, and content systems that scale across teams — and that AI can use too.' },
-  { title: 'Speaking & teaching', text: 'Talks and workshops on documentation, AI, and building careers in tech writing.' },
-];
 ---
 
 <Base>
@@ -21,7 +17,7 @@ const pillars = [
     <div class="container hero-grid">
       <div>
         <span class="eyebrow">{site.role}</span>
-        <h1>Hi, I'm Alina. I make complex things <em>clear.</em></h1>
+        <h1>{page.headline} <em>{page.highlight}</em></h1>
         <p class="lead">{site.tagline}</p>
         <div class="actions">
           <a class="btn btn-primary" href="/contact/">Get in touch →</a>
@@ -36,7 +32,7 @@ const pillars = [
 
   <section class="section pillars">
     <div class="container grid">
-      {pillars.map((p, i) => (
+      {page.pillars.map((p, i) => (
         <div class="pillar">
           <span class="num">0{i + 1}</span>
           <h3>{p.title}</h3>
@@ -107,8 +103,8 @@ const pillars = [
 
   <section class="section">
     <div class="container contact-band">
-      <h2>Let's work together</h2>
-      <p class="lead">Hiring, a documentation project, or looking for a speaker? I'd love to hear from you.</p>
+      <h2>{page.contactTitle}</h2>
+      <p class="lead">{page.contactText}</p>
       <div class="actions">
         <a class="btn btn-primary" href="/contact/">Get in touch →</a>
         <a class="btn btn-secondary" href={site.cv}>Download CV</a>

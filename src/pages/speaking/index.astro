@@ -2,6 +2,8 @@
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import TalkItem from '../../components/TalkItem.astro';
+// Page text lives in the MDX file
+import { frontmatter as page } from '../../content/pages/speaking.mdx';
 
 const all = (await getCollection('talks')).sort((a, b) => +b.data.date - +a.data.date);
 const now = new Date();
@@ -9,17 +11,17 @@ const upcoming = all.filter((t) => t.data.date >= now).reverse();
 const past = all.filter((t) => t.data.date < now);
 ---
 
-<Base title="Speaking & Media" description="Conference talks, webinars, and videos by Alina Desyatnikova.">
+<Base title="Speaking & Media" description={page.description}>
   <div class="container">
     <header class="page-head head">
       <div>
-        <span class="eyebrow">Speaking & Media</span>
-        <h1>Talks, webinars & videos</h1>
-        <p class="lead">I speak about technical writing, knowledge architecture, and working with AI in documentation.</p>
+        <span class="eyebrow">{page.eyebrow}</span>
+        <h1>{page.headline}</h1>
+        <p class="lead">{page.lead}</p>
       </div>
       <div class="kit-box">
-        <strong>Organizing an event?</strong>
-        <p class="muted">Bios, headshots, and talk topics are in my speaker kit.</p>
+        <strong>{page.kitTitle}</strong>
+        <p class="muted">{page.kitText}</p>
         <a class="btn btn-primary" href="/speaking/kit/">Speaker kit →</a>
       </div>
     </header>
