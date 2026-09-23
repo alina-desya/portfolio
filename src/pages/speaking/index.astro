@@ -1,0 +1,46 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import TalkItem from '../../components/TalkItem.astro';
+
+const all = (await getCollection('talks')).sort((a, b) => +b.data.date - +a.data.date);
+const now = new Date();
+const upcoming = all.filter((t) => t.data.date >= now).reverse();
+const past = all.filter((t) => t.data.date < now);
+---
+
+<Base title="Speaking & Media" description="Conference talks, webinars, and videos by Alina Desyatnikova.">
+  <div class="container">
+    <header class="page-head head">
+      <div>
+        <span class="eyebrow">Speaking & Media</span>
+        <h1>Talks, webinars & videos</h1>
+        <p class="lead">I speak about technical writing, knowledge architecture, and working with AI in documentation.</p>
+      </div>
+      <div class="kit-box">
+        <strong>Organizing an event?</strong>
+        <p class="muted">Bios, headshots, and talk topics are in my speaker kit.</p>
+        <a class="btn btn-primary" href="/speaking/kit/">Speaker kit →</a>
+      </div>
+    </header>
+
+    {upcoming.length > 0 && (
+      <section class="section">
+        <h2>Upcoming</h2>
+        {upcoming.map((t) => <TalkItem talk={t} />)}
+      </section>
+    )}
+
+    <section class="section">
+      <h2>Past talks</h2>
+      {past.map((t) => <TalkItem talk={t} embed />)}
+    </section>
+  </div>
+</Base>
+
+<style>
+  .head { display: grid; grid-template-columns: 1fr 320px; gap: 40px; align-items: end; }
+  .kit-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); }
+  .kit-box p { margin: 6px 0 16px; font-size: 0.95rem; }
+  @media (max-width: 820px) { .head { grid-template-columns: 1fr; } }
+</style>

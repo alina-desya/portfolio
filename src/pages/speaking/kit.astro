@@ -1,0 +1,118 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { site } from '../../site.config';
+
+const talkCount = (await getCollection('talks')).length;
+
+// TODO: replace with your real bios
+const shortBio = `${site.name} is a ${site.role} who designs documentation and knowledge systems that help people — and AI — find the right answer the first time.`;
+const longBio = `${site.name} is a ${site.role}. [Placeholder: 3–5 sentences on background, the products and teams you've worked with, what you're known for, and your newsletter The Knowledge Gap. Written in third person so organizers can paste it straight into a programme.]`;
+
+// TODO: add your real talk topics
+const topics = [
+  { title: 'Experimenting with AI in documentation', text: 'What actually works when you bring AI into a docs workflow — and what doesn’t.', formats: 'Talk · Webinar · Workshop' },
+  { title: 'From docs to knowledge architecture', text: 'How technical writers can design knowledge systems that scale across teams and tools.', formats: 'Talk · Workshop' },
+  { title: 'Building a career in technical writing', text: 'Practical advice for getting into — and growing in — tech writing.', formats: 'Talk · Panel · Podcast' },
+];
+
+// TODO: put your headshots in public/images/ and list them here
+const headshots = [
+  { src: site.photo, label: 'Portrait (colour)' },
+];
+---
+
+<Base title="Speaker kit" description={`Bios, headshots, and talk topics for event organizers inviting ${site.name}.`}>
+  <div class="container">
+    <header class="page-head">
+      <a href="/speaking/" class="back">← Speaking & Media</a>
+      <span class="eyebrow">For event organizers</span>
+      <h1>Speaker kit</h1>
+      <p class="lead">Everything you need to announce a session — copy what you need. {talkCount > 0 && `${talkCount}+ talks, webinars, and videos so far.`}</p>
+      <a class="btn btn-primary" href={`mailto:${site.email}?subject=Speaking%20invitation`}>Invite me to speak →</a>
+    </header>
+
+    <section class="section">
+      <h2>Talk topics</h2>
+      <div class="grid">
+        {topics.map((t) => (
+          <div class="card">
+            <h3>{t.title}</h3>
+            <p>{t.text}</p>
+            <span class="muted small">{t.formats}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="section bios">
+      <div class="bio">
+        <div class="bio-head"><h2>Short bio</h2><button type="button" data-copy="short-bio">Copy</button></div>
+        <p id="short-bio">{shortBio}</p>
+      </div>
+      <div class="bio">
+        <div class="bio-head"><h2>Long bio</h2><button type="button" data-copy="long-bio">Copy</button></div>
+        <p id="long-bio">{longBio}</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Headshots</h2>
+      <div class="shots">
+        {headshots.map((h) => (
+          <figure>
+            <img src={h.src} alt={`${site.name} — ${h.label}`} loading="lazy" />
+            <figcaption><a href={h.src} download>Download {h.label}</a></figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Good to know</h2>
+      <ul class="facts">
+        <li><strong>Languages:</strong> English (TODO: add others)</li>
+        <li><strong>Formats:</strong> keynotes, conference talks, webinars, workshops, panels, podcasts</li>
+        <li><strong>In person & online:</strong> TODO: where you're based / willing to travel</li>
+        <li><strong>Recordings:</strong> see <a href="/speaking/">past talks</a></li>
+      </ul>
+    </section>
+  </div>
+</Base>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const el = document.getElementById(btn.dataset.copy!);
+      if (!el) return;
+      try {
+        await navigator.clipboard.writeText(el.innerText);
+        btn.textContent = 'Copied ✓';
+        setTimeout(() => (btn.textContent = 'Copy'), 1800);
+      } catch {}
+    });
+  });
+</script>
+
+<style>
+  .back { display: block; width: fit-content; margin-bottom: 20px; text-decoration: none; font-weight: 500; }
+  .lead { margin-bottom: 24px; }
+  .small { font-size: 0.88rem; margin-top: auto; }
+  .bios { display: grid; grid-template-columns: 1fr 1.4fr; gap: 32px; }
+  .bio { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; }
+  .bio-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  .bio-head h2 { margin: 0; font-size: 1.4rem; }
+  .bio p { margin: 0; }
+  button {
+    font: inherit; font-size: 0.88rem; font-weight: 600; cursor: pointer;
+    padding: 6px 14px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface-2); color: var(--text);
+  }
+  button:hover { border-color: var(--accent); }
+  .shots { display: flex; gap: 20px; flex-wrap: wrap; }
+  figure { margin: 0; width: 220px; }
+  figure img { border-radius: 16px; aspect-ratio: 4 / 5; object-fit: cover; width: 100%; background: var(--surface-2); }
+  figcaption { margin-top: 8px; font-size: 0.92rem; }
+  .facts { padding-left: 20px; }
+  .facts li { margin-bottom: 8px; }
+  @media (max-width: 820px) { .bios { grid-template-columns: 1fr; } }
+</style>

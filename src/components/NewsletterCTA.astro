@@ -1,0 +1,25 @@
+---
+import { site } from '../site.config';
+---
+
+<aside class="newsletter">
+  <div>
+    <span class="eyebrow">Newsletter</span>
+    <h3>The Knowledge Gap</h3>
+    <p>My LinkedIn newsletter on documentation, knowledge architecture, and what AI changes for both.</p>
+  </div>
+  <a class="btn btn-primary" href={site.links.newsletter}>Subscribe on LinkedIn →</a>
+</aside>
+
+<style>
+  .newsletter {
+    display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+    padding: 32px;
+    border-radius: var(--radius);
+    background: var(--accent-soft);
+    border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+  }
+  .newsletter div { max-width: 56ch; }
+  h3 { font-size: 1.6rem; }
+  p { margin: 0; color: var(--muted); }
+</style>

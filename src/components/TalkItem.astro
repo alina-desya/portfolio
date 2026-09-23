@@ -1,0 +1,61 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props { talk: CollectionEntry<'talks'>; embed?: boolean }
+const { talk, embed = false } = Astro.props;
+const t = talk.data;
+
+// Turn a YouTube link into an embeddable URL
+function youtubeId(url?: string) {
+  if (!url) return null;
+  const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|live\/|shorts\/))([\w-]{11})/);
+  return m ? m[1] : null;
+}
+const ytId = embed ? youtubeId(t.videoUrl) : null;
+const date = t.date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+---
+
+<article class="talk">
+  <div class="meta">
+    <span class="type">{t.type}</span>
+    <time datetime={t.date.toISOString()}>{date}</time>
+  </div>
+  <div class="body">
+    <h3>{t.title}</h3>
+    <p class="event">
+      {t.eventUrl ? <a href={t.eventUrl}>{t.event}</a> : t.event}
+      {t.location && <span> · {t.location}</span>}
+    </p>
+    {ytId && (
+      <div class="video">
+        <iframe
+          src={`https://www.youtube-nocookie.com/embed/${ytId}`}
+          title={t.title}
+          loading="lazy"
+          allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+    )}
+    <div class="links">
+      {t.videoUrl && !ytId && <a href={t.videoUrl}>▶ Watch recording</a>}
+      {t.slidesUrl && <a href={t.slidesUrl}>Slides</a>}
+    </div>
+  </div>
+</article>
+
+<style>
+  .talk { display: grid; grid-template-columns: 130px 1fr; gap: 24px; padding: 24px 0; border-top: 1px solid var(--border); }
+  .meta { display: flex; flex-direction: column; gap: 4px; font-size: 0.88rem; color: var(--muted); }
+  .type { font-weight: 600; color: var(--accent); }
+  h3 { margin-bottom: 4px; }
+  .event { color: var(--muted); margin-bottom: 8px; }
+  .links { display: flex; gap: 16px; font-weight: 600; font-size: 0.95rem; }
+  .links a { text-decoration: none; }
+  .video { position: relative; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; margin: 12px 0; max-width: 640px; background: var(--surface-2); }
+  .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  @media (max-width: 640px) {
+    .talk { grid-template-columns: 1fr; gap: 8px; }
+    .meta { flex-direction: row; gap: 12px; }
+  }
+</style>

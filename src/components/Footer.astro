@@ -1,0 +1,25 @@
+---
+import { site } from '../site.config';
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container inner">
+    <p>© {year} {site.name}</p>
+    <ul>
+      <li><a href={site.links.linkedin} rel="me">LinkedIn</a></li>
+      <li><a href={site.links.github} rel="me">GitHub</a></li>
+      <li><a href={site.links.newsletter}>The Knowledge Gap</a></li>
+      <li><a href="/speaking/kit/">Speaker kit</a></li>
+    </ul>
+  </div>
+</footer>
+
+<style>
+  .footer { border-top: 1px solid var(--border); padding: 32px 0; margin-top: 40px; font-size: 0.92rem; color: var(--muted); }
+  .inner { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+  p { margin: 0; }
+  ul { display: flex; gap: 20px; list-style: none; margin: 0; padding: 0; flex-wrap: wrap; }
+  a { color: var(--muted); text-decoration: none; }
+  a:hover { color: var(--accent); }
+</style>
