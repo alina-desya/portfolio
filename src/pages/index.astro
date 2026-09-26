@@ -40,6 +40,9 @@ const posts = (await getCollection('posts', (p) => !p.data.draft)).sort((a, b) =
         </div>
       ))}
     </div>
+    <div class="container pillars-more">
+      <a href="/services/">How I can help your team →</a>
+    </div>
   </section>
 
   {projects.length > 0 && (
@@ -127,6 +130,7 @@ const posts = (await getCollection('posts', (p) => !p.data.draft)).sort((a, b) =
 
   .pillars { padding-top: 40px; }
   .pillar { padding: 8px 4px; border-top: 2px solid var(--text); padding-top: 20px; }
+  .pillars-more { margin-top: 20px; font-weight: 600; }
   .num { font-family: var(--font-display); color: var(--warm); font-weight: 600; font-size: 1.1rem; }
 
   .contact-band {

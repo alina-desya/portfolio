@@ -1,0 +1,150 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../site.config';
+// Page text lives in the MDX file
+import Notes, { frontmatter as page } from '../content/pages/services.mdx';
+
+const consultMail = `mailto:${site.email}?subject=${encodeURIComponent('Consulting inquiry')}`;
+---
+
+<Base title="Services" description={page.description}>
+  <div class="container">
+    <header class="page-head">
+      <span class="eyebrow">{page.eyebrow}</span>
+      <h1>{page.headline}</h1>
+      <p class="lead">{page.lead}</p>
+      <div class="actions">
+        <a class="btn btn-primary" href={consultMail}>Book an intro call →</a>
+        <a class="btn btn-secondary" href="#hiring">I'm hiring</a>
+      </div>
+    </header>
+
+    <section class="section">
+      <h2>Sounds familiar?</h2>
+      <ul class="cases">
+        {page.useCases.map((c) => <li>{c}</li>)}
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>What I do</h2>
+      <div class="services">
+        {page.services.map((s, i) => (
+          <article class="card service">
+            <span class="num">0{i + 1}</span>
+            <h3>{s.title}</h3>
+            <p class="for">{s.for}</p>
+            <p>{s.text}</p>
+            <ul class="tags">{s.deliverables.map((d) => <li class="tag">{d}</li>)}</ul>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="section two-col">
+      <div>
+        <h2>How we'd work</h2>
+        <ol class="steps">
+          {page.process.map((p) => (
+            <li>
+              <h3>{p.title}</h3>
+              <p class="muted">{p.text}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+      <div>
+        <h2>Formats</h2>
+        <div class="formats">
+          {page.formats.map((f) => (
+            <div class="format">
+              <h3>{f.title}</h3>
+              <p class="muted">{f.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="hiring">
+      <div class="hiring">
+        <div>
+          <span class="eyebrow">For hiring managers</span>
+          <h2>{page.hiring.title}</h2>
+          <p class="muted">{page.hiring.text}</p>
+        </div>
+        <div class="actions">
+          <a class="btn btn-primary" href={site.cv} download>Download CV</a>
+          <a class="btn btn-secondary" href="/portfolio/">See my work</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section cta">
+      <div class="prose notes"><Notes /></div>
+      <h2>Have a project in mind?</h2>
+      <p class="lead">Tell me a bit about it — I'll reply within a few working days.</p>
+      <div class="actions center">
+        <a class="btn btn-primary" href={consultMail}>Email me →</a>
+        <a class="btn btn-secondary" href={site.links.linkedin}>Message on LinkedIn</a>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+  .actions.center { justify-content: center; }
+
+  .cases {
+    list-style: none; padding: 0; margin: 0;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px 32px;
+  }
+  .cases li { position: relative; padding: 12px 0 12px 32px; border-bottom: 1px solid var(--border); }
+  .cases li::before {
+    content: '✓'; position: absolute; left: 0; top: 12px;
+    width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center;
+    font-size: 0.75rem; font-weight: 700; background: var(--accent-soft); color: var(--accent);
+  }
+
+  .services { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .service .num { font-family: var(--font-display); color: var(--warm); font-weight: 600; margin-bottom: 8px; }
+  .service .for { color: var(--text); font-weight: 500; margin-bottom: 8px; }
+  .service .tags { margin: auto 0 0; padding-top: 4px; }
+
+  .two-col { display: grid; grid-template-columns: 1.2fr 1fr; gap: 56px; }
+  .steps { list-style: none; counter-reset: step; padding: 0; margin: 0; }
+  .steps li { counter-increment: step; position: relative; padding: 0 0 20px 52px; }
+  .steps li::before {
+    content: counter(step); position: absolute; left: 0; top: 0;
+    width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center;
+    background: var(--accent); color: var(--accent-ink); font-weight: 600;
+  }
+  .steps li:not(:last-child)::after {
+    content: ''; position: absolute; left: 16px; top: 38px; bottom: 4px; width: 2px; background: var(--border);
+  }
+  .steps h3, .format h3 { font-size: 1.1rem; margin-bottom: 4px; }
+  .steps p, .format p { margin: 0; }
+  .formats { display: grid; gap: 12px; }
+  .format { padding: 18px 20px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); }
+
+  .hiring {
+    display: flex; justify-content: space-between; align-items: center; gap: 32px; flex-wrap: wrap;
+    padding: 36px; border-radius: 24px; background: var(--accent-soft);
+    border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+  }
+  .hiring > div:first-child { max-width: 60ch; }
+  .hiring p { margin: 0; }
+  .hiring .actions { margin-top: 0; }
+
+  .cta { text-align: center; }
+  .cta .lead { margin: 0 auto; }
+  .notes { margin: 0 auto 32px; text-align: left; }
+  .notes:empty { display: none; }
+
+  @media (max-width: 820px) {
+    .services, .two-col { grid-template-columns: 1fr; }
+    .two-col { gap: 40px; }
+    .hiring { padding: 28px 20px; }
+  }
+</style>

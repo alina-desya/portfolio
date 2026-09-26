@@ -1,4 +1,4 @@
-# Alina Desyatnikova — portfolio
+# Alina Desiatnikova — portfolio
 
 Built with [Astro](https://astro.build). Content is written in MDX (Markdown that can also use components); the site deploys to GitHub Pages.
 
