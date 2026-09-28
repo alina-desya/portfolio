@@ -26,12 +26,12 @@ import Bio, { frontmatter as page } from '../content/pages/about.mdx';
 
     <section class="section two-col">
       <div>
-        <h2>Experience</h2>
+        <h2>Selected Experience</h2>
         <ol class="timeline">
           {page.experience.map((e) => (
             <li>
               <span class="muted period">{e.period}</span>
-              <h3>{e.role} <span class="muted">· {e.org}</span></h3>
+              <h3>{e.role} <span class="muted">· {e.url ? <a href={e.url}>{e.org}</a> : e.org}</span></h3>
               <p class="muted">{e.text}</p>
             </li>
           ))}

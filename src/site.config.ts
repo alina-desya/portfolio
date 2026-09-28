@@ -4,10 +4,10 @@ export const site = {
   name: 'Alina Desiatnikova',
   role: 'Senior Technical Writer & Knowledge Architect',
   tagline:
-    'I turn complex products into knowledge people can actually find, trust, and use — from API docs to AI-ready knowledge bases.',
+    'I build documentation systems for product and engineering teams: from end-user documentation to API docs, developer guides, and AI-ready knowledge bases.',
   description:
     'Portfolio of Alina Desiatnikova — Senior Technical Writer & Knowledge Architect. Projects, writing samples, talks, and articles.',
-  photo: '/images/headshot.svg', // TODO: drop your photo in public/images/ and update the path
+  photo: '/images/IMG_5923.png',
   email: 'hello@example.com', // TODO: your public contact email
   cv: '/files/cv.pdf', // TODO: put your CV PDF in public/files/cv.pdf
   links: {
