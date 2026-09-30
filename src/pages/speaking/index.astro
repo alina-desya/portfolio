@@ -1,14 +1,8 @@
 ---
-import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import TalkItem from '../../components/TalkItem.astro';
-// Page text lives in the MDX file
+// Page text and all talks live in the MDX file
 import { frontmatter as page } from '../../content/pages/speaking.mdx';
-
-const all = (await getCollection('talks')).sort((a, b) => +b.data.date - +a.data.date);
-const now = new Date();
-const upcoming = all.filter((t) => t.data.date >= now).reverse();
-const past = all.filter((t) => t.data.date < now);
 ---
 
 <Base title="Speaking & Media" description={page.description}>
@@ -26,17 +20,12 @@ const past = all.filter((t) => t.data.date < now);
       </div>
     </header>
 
-    {upcoming.length > 0 && (
+    {page.sections.map((s) => (
       <section class="section">
-        <h2>Upcoming</h2>
-        {upcoming.map((t) => <TalkItem talk={t} />)}
+        <h2>{s.title}</h2>
+        {s.talks.map((t) => <TalkItem talk={t} embed />)}
       </section>
-    )}
-
-    <section class="section">
-      <h2>Past talks</h2>
-      {past.map((t) => <TalkItem talk={t} embed />)}
-    </section>
+    ))}
   </div>
 </Base>
 

@@ -6,9 +6,10 @@ import NewsletterCTA from '../components/NewsletterCTA.astro';
 import { site } from '../site.config';
 // Page text lives in the MDX file
 import { frontmatter as page } from '../content/pages/home.mdx';
+import { frontmatter as speaking } from '../content/pages/speaking.mdx';
 
 const projects = (await getCollection('projects', (p) => p.data.featured)).sort((a, b) => a.data.order - b.data.order);
-const talks = (await getCollection('talks')).sort((a, b) => +b.data.date - +a.data.date).slice(0, 3);
+const talks = speaking.sections[0].talks.slice(0, 3);
 const posts = (await getCollection('posts', (p) => !p.data.draft)).sort((a, b) => +b.data.date - +a.data.date).slice(0, 3);
 ---
 
@@ -58,7 +59,7 @@ const posts = (await getCollection('posts', (p) => !p.data.draft)).sort((a, b) =
               <ul class="tags">{p.data.tags.map((t) => <li class="tag">{t}</li>)}</ul>
               <h3>{p.data.title}</h3>
               <p>{p.data.summary}</p>
-              <span class="more">Read case study →</span>
+              <span class="more">View project →</span>
             </a>
           ))}
         </div>

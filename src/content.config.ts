@@ -9,7 +9,8 @@ const projects = defineCollection({
     title: z.string(),
     summary: z.string(),
     tags: z.array(z.string()).default([]),
-    url: z.string().optional(), // live site / repo
+    url: z.string().optional(), // GitHub repo
+    demoUrl: z.string().optional(), // live demo
     featured: z.boolean().default(false),
     order: z.number().default(100),
   }),
@@ -27,21 +28,6 @@ const samples = defineCollection({
   }),
 });
 
-// Conference talks, webinars, podcasts, videos.
-const talks = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/talks' }),
-  schema: z.object({
-    title: z.string(),
-    event: z.string(),
-    date: z.coerce.date(),
-    location: z.string().optional(), // city or "Online"
-    type: z.enum(['Conference', 'Webinar', 'Podcast', 'Workshop', 'Meetup', 'Video']),
-    eventUrl: z.string().optional(),
-    videoUrl: z.string().optional(), // YouTube links are embedded automatically
-    slidesUrl: z.string().optional(),
-  }),
-});
-
 // Blog posts — mostly republished LinkedIn articles.
 const posts = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/posts' }),
@@ -54,4 +40,4 @@ const posts = defineCollection({
   }),
 });
 
-export const collections = { projects, samples, talks, posts };
+export const collections = { projects, samples, posts };

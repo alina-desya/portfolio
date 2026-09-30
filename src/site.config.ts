@@ -7,7 +7,7 @@ export const site = {
     'I build documentation systems for product and engineering teams: from end-user documentation to API docs, developer guides, and AI-ready knowledge bases.',
   description:
     'Portfolio of Alina Desiatnikova — Senior Technical Writer & Knowledge Architect. Projects, writing samples, talks, and articles.',
-  photo: '/images/IMG_5923.png',
+  photo: '/images/headshot.jpg',
   email: 'hello@example.com', // TODO: your public contact email
   cv: '/files/cv.pdf', // TODO: put your CV PDF in public/files/cv.pdf
   links: {

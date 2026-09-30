@@ -1,6 +1,5 @@
 ---
 import Base from '../layouts/Base.astro';
-import { site } from '../site.config';
 // Page text lives in the MDX file
 import Intro, { frontmatter as page } from '../content/pages/contact.mdx';
 ---
@@ -12,23 +11,5 @@ import Intro, { frontmatter as page } from '../content/pages/contact.mdx';
       <h1>{page.headline}</h1>
       <div class="lead"><Intro /></div>
     </header>
-
-    <section class="section grid">
-      {page.reasons.map((r) => (
-        <div class="card">
-          <h3>{r.title}</h3>
-          <p>{r.text}</p>
-          <div class="links">
-            <a class="btn btn-primary" href={`mailto:${site.email}?subject=${encodeURIComponent(r.subject)}`}>Email me</a>
-            {r.link && <a class="btn btn-secondary" href={r.link.href}>{r.link.label}</a>}
-          </div>
-        </div>
-      ))}
-    </section>
   </div>
 </Base>
-
-<style>
-  .links { display: flex; gap: 10px; flex-wrap: wrap; margin-top: auto; }
-  .links .btn { padding: 9px 18px; font-size: 0.92rem; }
-</style>

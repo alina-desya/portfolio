@@ -13,11 +13,21 @@ const consultMail = `mailto:${site.email}?subject=${encodeURIComponent('Consulti
       <span class="eyebrow">{page.eyebrow}</span>
       <h1>{page.headline}</h1>
       <p class="lead">{page.lead}</p>
-      <div class="actions">
-        <a class="btn btn-primary" href={consultMail}>Book an intro call →</a>
-        <a class="btn btn-secondary" href="#hiring">I'm hiring</a>
-      </div>
     </header>
+
+    <section class="section" id="hiring">
+      <div class="hiring">
+        <div>
+          <span class="eyebrow">For hiring managers</span>
+          <h2>{page.hiring.title}</h2>
+          <p class="muted">{page.hiring.text}</p>
+        </div>
+        <div class="actions">
+          <a class="btn btn-primary" href={site.cv} download>Download CV</a>
+          <a class="btn btn-secondary" href="/portfolio/">See my work</a>
+        </div>
+      </div>
+    </section>
 
     <section class="section">
       <h2>Sounds familiar?</h2>
@@ -41,49 +51,10 @@ const consultMail = `mailto:${site.email}?subject=${encodeURIComponent('Consulti
       </div>
     </section>
 
-    <section class="section two-col">
-      <div>
-        <h2>How we'd work</h2>
-        <ol class="steps">
-          {page.process.map((p) => (
-            <li>
-              <h3>{p.title}</h3>
-              <p class="muted">{p.text}</p>
-            </li>
-          ))}
-        </ol>
-      </div>
-      <div>
-        <h2>Formats</h2>
-        <div class="formats">
-          {page.formats.map((f) => (
-            <div class="format">
-              <h3>{f.title}</h3>
-              <p class="muted">{f.text}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="hiring">
-      <div class="hiring">
-        <div>
-          <span class="eyebrow">For hiring managers</span>
-          <h2>{page.hiring.title}</h2>
-          <p class="muted">{page.hiring.text}</p>
-        </div>
-        <div class="actions">
-          <a class="btn btn-primary" href={site.cv} download>Download CV</a>
-          <a class="btn btn-secondary" href="/portfolio/">See my work</a>
-        </div>
-      </div>
-    </section>
-
     <section class="section cta">
       <div class="prose notes"><Notes /></div>
       <h2>Have a documentation or knowledge project in mind?</h2>
-      <p class="lead">Tell me a bit about it — I'll reply within a few working days.</p>
+      <p class="lead">Tell me a bit about it. I'll reply within a few working days.</p>
       <div class="actions center">
         <a class="btn btn-primary" href={consultMail}>Email me →</a>
         <a class="btn btn-secondary" href={site.links.linkedin}>Message on LinkedIn</a>
@@ -128,6 +99,8 @@ const consultMail = `mailto:${site.email}?subject=${encodeURIComponent('Consulti
   .formats { display: grid; gap: 12px; }
   .format { padding: 18px 20px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); }
 
+  /* Sits right under the page header: keep it close, and let the next section supply the gap below */
+  #hiring { padding: 16px 0 0; }
   .hiring {
     display: flex; justify-content: space-between; align-items: center; gap: 32px; flex-wrap: wrap;
     padding: 36px; border-radius: 24px; background: var(--accent-soft);

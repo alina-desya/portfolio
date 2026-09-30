@@ -19,7 +19,12 @@ const d = project.data;
       <ul class="tags">{d.tags.map((t) => <li class="tag">{t}</li>)}</ul>
       <h1>{d.title}</h1>
       <p class="lead">{d.summary}</p>
-      {d.url && <a class="btn btn-primary" href={d.url}>View project ↗</a>}
+      {(d.url || d.demoUrl) && (
+        <div class="actions">
+          {d.url && <a class="btn btn-primary" href={d.url}>View on GitHub ↗</a>}
+          {d.demoUrl && <a class="btn btn-secondary" href={d.demoUrl}>Open live demo ↗</a>}
+        </div>
+      )}
     </header>
     <div class="prose section">
       <Content />
@@ -30,5 +35,6 @@ const d = project.data;
 <style>
   .back { display: block; width: fit-content; margin-bottom: 20px; text-decoration: none; font-weight: 500; }
   .lead { margin-bottom: 24px; }
+  .actions { display: flex; gap: 12px; flex-wrap: wrap; }
   .section { padding-top: 24px; }
 </style>
