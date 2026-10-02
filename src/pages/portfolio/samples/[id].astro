@@ -1,0 +1,84 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+
+export async function getStaticPaths() {
+  // Samples with an external `url` don't get a page on this site
+  const samples = await getCollection('samples', (s) => !s.data.url);
+  return samples.map((s) => ({ params: { id: s.id }, props: { sample: s } }));
+}
+
+const { sample } = Astro.props;
+const { Content } = await render(sample);
+const d = sample.data;
+---
+
+<Base title={d.title} description={d.summary}>
+  <article class="container">
+    <header class="page-head">
+      <a href="/portfolio/" class="back">← Portfolio</a>
+      <span class="eyebrow">Writing sample · {d.kind}</span>
+      <h1>{d.title}</h1>
+      <p class="lead">{d.summary}</p>
+    </header>
+
+    {d.highlights.length > 0 && (
+      <aside class="about-sample">
+        <h2>What this sample shows</h2>
+        <ul>{d.highlights.map((h) => <li>{h}</li>)}</ul>
+        {d.note && <p class="note">{d.note}</p>}
+      </aside>
+    )}
+
+    <div class="doc">
+      <div class="prose sample">
+        <Content />
+      </div>
+    </div>
+
+    <p class="end"><a href="/portfolio/">← Back to portfolio</a></p>
+  </article>
+</Base>
+
+<style>
+  .back { display: block; width: fit-content; margin-bottom: 20px; text-decoration: none; font-weight: 500; }
+  .about-sample {
+    padding: 24px 28px; margin-bottom: 40px; max-width: 860px;
+    background: var(--accent-soft); border-radius: var(--radius);
+    border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+  }
+  .about-sample h2 { font-size: 1.2rem; margin-bottom: 10px; }
+  .about-sample ul { margin: 0; padding-left: 20px; }
+  .about-sample li { margin-bottom: 4px; }
+  .note { margin: 14px 0 0; font-size: 0.9rem; color: var(--muted); }
+
+  /* The sample itself, framed like a docs page */
+  .doc {
+    max-width: 860px; padding: 40px 48px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  }
+  .sample { max-width: none; }
+  .sample :global(h2) { padding-top: 0.6em; border-top: 1px solid var(--border); }
+  .sample :global(h2:first-child) { margin-top: 0; padding-top: 0; border-top: 0; }
+  .sample :global(h4) { font-size: 1.1rem; margin: 1.6em 0 0.5em; }
+  .sample :global(h5) { font-family: var(--font-mono, ui-monospace, monospace); font-size: 1rem; margin: 1.8em 0 0.5em; }
+  .sample :global(h2), .sample :global(h3), .sample :global(h4), .sample :global(h5) { scroll-margin-top: 90px; }
+  .sample :global(table) {
+    display: block; overflow-x: auto; width: 100%;
+    border-collapse: collapse; margin: 1.2em 0 1.6em; font-size: 0.92rem; line-height: 1.5;
+  }
+  .sample :global(th), .sample :global(td) { padding: 10px 12px; border: 1px solid var(--border); text-align: left; vertical-align: top; }
+  .sample :global(th) { background: var(--surface-2); font-weight: 600; white-space: nowrap; }
+  .sample :global(td code) { white-space: nowrap; }
+  .sample :global(pre) { font-size: 0.88rem; line-height: 1.5; }
+  .sample :global(blockquote) { border-left-color: var(--accent); background: var(--surface-2); padding: 12px 18px; color: var(--text); }
+  .sample :global(blockquote p) { margin: 0; }
+
+  .end { margin-top: 32px; }
+  .end a { text-decoration: none; font-weight: 500; }
+
+  @media (max-width: 640px) {
+    .doc { padding: 24px 16px; margin: 0 -16px; border-left: 0; border-right: 0; border-radius: 0; }
+    .about-sample { padding: 20px; }
+  }
+</style>

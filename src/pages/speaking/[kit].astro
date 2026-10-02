@@ -5,6 +5,11 @@ import { site } from '../../site.config';
 import Facts, { frontmatter as page } from '../../content/pages/speaker-kit.mdx';
 import { frontmatter as speaking } from '../../content/pages/speaking.mdx';
 
+// Only build this page when the speaker kit is enabled in site.config
+export function getStaticPaths() {
+  return site.showSpeakerKit ? [{ params: { kit: 'kit' } }] : [];
+}
+
 const talkCount = speaking.sections.flatMap((s) => s.talks).length;
 ---
 

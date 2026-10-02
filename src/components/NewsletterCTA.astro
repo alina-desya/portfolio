@@ -1,14 +1,17 @@
 ---
 import { site } from '../site.config';
+// Newsletter text is edited in the Blog page's MDX file
+import { frontmatter as blog } from '../content/pages/blog.mdx';
+const n = blog.newsletter;
 ---
 
 <aside class="newsletter">
   <div>
     <span class="eyebrow">Newsletter</span>
-    <h3>The Knowledge Gap</h3>
-    <p>My LinkedIn newsletter on documentation, knowledge architecture, and what AI changes for both.</p>
+    <h3>{n.name}</h3>
+    <p>{n.audience}. {n.text}</p>
   </div>
-  <a class="btn btn-primary" href={site.links.newsletter}>Subscribe on LinkedIn →</a>
+  <a class="btn btn-primary" href={site.links.newsletter} target="_blank" rel="noopener">Subscribe on LinkedIn ↗</a>
 </aside>
 
 <style>

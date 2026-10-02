@@ -7,10 +7,11 @@ import { site } from '../site.config';
 // Page text lives in the MDX file
 import { frontmatter as page } from '../content/pages/home.mdx';
 import { frontmatter as speaking } from '../content/pages/speaking.mdx';
+import { frontmatter as blog } from '../content/pages/blog.mdx';
 
 const projects = (await getCollection('projects', (p) => p.data.featured)).sort((a, b) => a.data.order - b.data.order);
 const talks = speaking.sections[0].talks.slice(0, 3);
-const posts = (await getCollection('posts', (p) => !p.data.draft)).sort((a, b) => +b.data.date - +a.data.date).slice(0, 3);
+const posts = (blog.posts ?? []).slice(0, 3);
 ---
 
 <Base>
@@ -85,17 +86,15 @@ const posts = (await getCollection('posts', (p) => !p.data.draft)).sort((a, b) =
         <>
           <div class="section-head">
             <h2>Latest writing</h2>
-            <a href="/blog/">All posts →</a>
+            <a href="/blog/">More writing →</a>
           </div>
           <div class="grid" style="margin-bottom: 40px">
             {posts.map((p) => (
-              <a class="card" href={`/blog/${p.id}/`}>
-                <time class="muted" datetime={p.data.date.toISOString()}>
-                  {p.data.date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-                </time>
-                <h3>{p.data.title}</h3>
-                <p>{p.data.description}</p>
-                <span class="more">Read →</span>
+              <a class="card" href={p.url} target="_blank" rel="noopener">
+                <span class="muted">{[p.type, p.date].filter(Boolean).join(' · ')}</span>
+                <h3>{p.title}</h3>
+                {p.summary && <p>{p.summary}</p>}
+                <span class="more">Read on LinkedIn ↗</span>
               </a>
             ))}
           </div>

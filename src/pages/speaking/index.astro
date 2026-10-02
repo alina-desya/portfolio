@@ -1,23 +1,26 @@
 ---
 import Base from '../../layouts/Base.astro';
 import TalkItem from '../../components/TalkItem.astro';
+import { site } from '../../site.config';
 // Page text and all talks live in the MDX file
 import { frontmatter as page } from '../../content/pages/speaking.mdx';
 ---
 
 <Base title="Speaking & Media" description={page.description}>
   <div class="container">
-    <header class="page-head head">
+    <header class:list={["page-head", { head: site.showSpeakerKit }]}>
       <div>
         <span class="eyebrow">{page.eyebrow}</span>
         <h1>{page.headline}</h1>
         <p class="lead">{page.lead}</p>
       </div>
-      <div class="kit-box">
-        <strong>{page.kitTitle}</strong>
-        <p class="muted">{page.kitText}</p>
-        <a class="btn btn-primary" href="/speaking/kit/">Speaker kit →</a>
-      </div>
+      {site.showSpeakerKit && (
+        <div class="kit-box">
+          <strong>{page.kitTitle}</strong>
+          <p class="muted">{page.kitText}</p>
+          <a class="btn btn-primary" href="/speaking/kit/">Speaker kit →</a>
+        </div>
+      )}
     </header>
 
     {page.sections.map((s) => (

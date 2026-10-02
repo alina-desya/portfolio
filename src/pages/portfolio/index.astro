@@ -35,11 +35,11 @@ const samples = (await getCollection('samples')).sort((a, b) => a.data.order - b
         <h2>Writing samples</h2>
         <div class="grid">
           {samples.map((s) => (
-            <a class="card" href={s.data.url}>
+            <a class="card" href={s.data.url ?? `/portfolio/samples/${s.id}/`}>
               <ul class="tags"><li class="tag">{s.data.kind}</li></ul>
               <h3>{s.data.title}</h3>
               <p>{s.data.summary}</p>
-              <span class="more">View sample ↗</span>
+              <span class="more">{s.data.url ? 'View sample ↗' : 'Read sample →'}</span>
             </a>
           ))}
         </div>

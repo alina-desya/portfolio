@@ -1,11 +1,10 @@
 ---
-import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
-// Page text lives in the MDX file
+import { site } from '../../site.config';
+// Page text and the featured posts list live in the MDX file
 import { frontmatter as page } from '../../content/pages/blog.mdx';
-import NewsletterCTA from '../../components/NewsletterCTA.astro';
 
-const posts = (await getCollection('posts', (p) => !p.data.draft)).sort((a, b) => +b.data.date - +a.data.date);
+const ext = { target: '_blank', rel: 'noopener' };
 ---
 
 <Base title="Blog" description={page.description}>
@@ -14,36 +13,56 @@ const posts = (await getCollection('posts', (p) => !p.data.draft)).sort((a, b) =
       <span class="eyebrow">{page.eyebrow}</span>
       <h1>{page.headline}</h1>
       <p class="lead">{page.lead}</p>
+      <a class="btn btn-secondary" href={site.links.linkedin} {...ext}>{page.followLabel} ↗</a>
     </header>
 
-    <section class="section list">
-      {posts.map((p) => (
-        <a class="post" href={`/blog/${p.id}/`}>
-          <time datetime={p.data.date.toISOString()}>
-            {p.data.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-          </time>
-          <div>
-            <h2>{p.data.title}</h2>
-            <p class="muted">{p.data.description}</p>
-          </div>
-        </a>
-      ))}
+    <section class="newsletter">
+      <div>
+        <span class="eyebrow">Newsletter</span>
+        <h2>{page.newsletter.name}</h2>
+        <p class="audience">{page.newsletter.audience}</p>
+        <p class="muted">{page.newsletter.text}</p>
+      </div>
+      <a class="btn btn-primary" href={site.links.newsletter} {...ext}>Subscribe on LinkedIn ↗</a>
     </section>
 
-    <NewsletterCTA />
+    {page.posts?.length > 0 && (
+      <section class="section">
+        <div class="section-head">
+          <h2>Featured posts</h2>
+          <a href={site.links.linkedin} {...ext}>All posts on LinkedIn ↗</a>
+        </div>
+        <div class="grid">
+          {page.posts.map((p) => (
+            <a class="card" href={p.url} {...ext}>
+              <div class="meta">
+                {p.type && <span class="tag">{p.type}</span>}
+                {p.date && <span class="muted">{p.date}</span>}
+              </div>
+              <h3>{p.title}</h3>
+              {p.summary && <p>{p.summary}</p>}
+              <span class="more">Read on LinkedIn ↗</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
   </div>
 </Base>
 
 <style>
-  .list { padding-top: 24px; }
-  .post {
-    display: grid; grid-template-columns: 140px 1fr; gap: 24px;
-    padding: 24px 0; border-top: 1px solid var(--border);
-    color: inherit; text-decoration: none;
+  .page-head .lead { margin-bottom: 24px; }
+  .newsletter {
+    display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap;
+    margin-top: 24px; padding: 40px;
+    border-radius: 24px;
+    background: var(--accent-soft);
+    border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
   }
-  .post:hover h2 { color: var(--accent); }
-  time { color: var(--muted); font-size: 0.9rem; padding-top: 6px; }
-  h2 { font-size: 1.4rem; margin-bottom: 6px; transition: color 0.15s; }
-  p { margin: 0; }
-  @media (max-width: 640px) { .post { grid-template-columns: 1fr; gap: 4px; } }
+  .newsletter > div { max-width: 60ch; }
+  .newsletter h2 { margin-bottom: 4px; }
+  .newsletter .audience { font-weight: 600; margin-bottom: 8px; }
+  .newsletter p:last-child { margin: 0; }
+  .meta { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-size: 0.88rem; }
+  @media (max-width: 640px) { .newsletter { padding: 28px 20px; } }
 </style>

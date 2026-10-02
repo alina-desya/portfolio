@@ -8,13 +8,17 @@ export const site = {
   description:
     'Portfolio of Alina Desiatnikova — Senior Technical Writer & Knowledge Architect. Projects, writing samples, talks, and articles.',
   photo: '/images/headshot.jpg',
-  email: 'hello@example.com', // TODO: your public contact email
-  cv: '/files/cv.pdf', // TODO: put your CV PDF in public/files/cv.pdf
+  email: 'alina.desyatnikova@gmail.com',
+  cv: '/files/Alina-Desiatnikova-CV.pdf', // phone number removed; replace this file to update the CV
   links: {
     linkedin: 'https://www.linkedin.com/in/alinadesyatnikova',
     github: 'https://github.com/alina-desya',
     newsletter: 'https://www.linkedin.com/newsletters/the-knowledge-gap-7497859047505887232/',
   },
+  // Set to true to publish /speaking/kit/ and show links to it (footer, Speaking page)
+  showSpeakerKit: false,
+  // Set to true to publish /mexidocs/ and show it in the menu
+  showMexiDocs: false,
 };
 
 export const nav = [
@@ -23,5 +27,5 @@ export const nav = [
   { href: '/portfolio/', label: 'Portfolio' },
   { href: '/speaking/', label: 'Speaking' },
   { href: '/blog/', label: 'Blog' },
-  { href: '/mexidocs/', label: 'MexiDocs' },
+  ...(site.showMexiDocs ? [{ href: '/mexidocs/', label: 'MexiDocs' }] : []),
 ];

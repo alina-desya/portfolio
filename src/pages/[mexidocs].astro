@@ -1,7 +1,13 @@
 ---
 import Base from '../layouts/Base.astro';
+import { site } from '../site.config';
 // Page text lives in the MDX file
 import Intro, { frontmatter as page } from '../content/pages/mexidocs.mdx';
+
+// Only build this page when MexiDocs is enabled in site.config
+export function getStaticPaths() {
+  return site.showMexiDocs ? [{ params: { mexidocs: 'mexidocs' } }] : [];
+}
 ---
 
 <Base title="MexiDocs" description={page.description}>

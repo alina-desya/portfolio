@@ -16,28 +16,19 @@ const projects = defineCollection({
   }),
 });
 
-// Writing samples published elsewhere — shown as cards linking out.
+// Writing samples. The Markdown body becomes a page at /portfolio/samples/<file-name>/.
+// Set `url` instead to link to a sample published elsewhere.
 const samples = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/samples' }),
   schema: z.object({
     title: z.string(),
     summary: z.string(),
-    kind: z.string(), // e.g. "API reference", "How-to guide"
-    url: z.string(),
+    kind: z.string(), // e.g. "API guide", "Troubleshooting guide"
+    highlights: z.array(z.string()).default([]), // what the sample demonstrates
+    note: z.string().optional(), // e.g. "Anonymized sample"
+    url: z.string().optional(), // external sample instead of a page on this site
     order: z.number().default(100),
   }),
 });
 
-// Blog posts — mostly republished LinkedIn articles.
-const posts = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/posts' }),
-  schema: z.object({
-    title: z.string(),
-    description: z.string(),
-    date: z.coerce.date(),
-    originalUrl: z.string().optional(), // LinkedIn original → used as canonical URL
-    draft: z.boolean().default(false),
-  }),
-});
-
-export const collections = { projects, samples, posts };
+export const collections = { projects, samples };

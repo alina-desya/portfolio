@@ -9,9 +9,10 @@ interface Props {
   description?: string;
   canonical?: string; // override, e.g. LinkedIn original for republished posts
   image?: string;
+  noindex?: boolean; // keep this page out of search results (e.g. the 404 page)
 }
 
-const { title, description = site.description, canonical, image = site.photo } = Astro.props;
+const { title, description = site.description, canonical, image = site.photo, noindex = false } = Astro.props;
 const fullTitle = title ? `${title} — ${site.name}` : `${site.name} — ${site.role}`;
 const canonicalUrl = canonical ?? new URL(Astro.url.pathname, Astro.site).href;
 const imageUrl = new URL(image, Astro.site).href;
@@ -24,7 +25,7 @@ const imageUrl = new URL(image, Astro.site).href;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonicalUrl} />
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonicalUrl} />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
     <!-- Link previews (LinkedIn, Slack, etc.) -->

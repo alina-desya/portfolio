@@ -45,7 +45,11 @@ body {
   font-size: 17px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
+body > main { flex: 1 0 auto; }
 img { max-width: 100%; height: auto; display: block; }
 a { color: var(--accent); text-underline-offset: 3px; }
 a:hover { text-decoration-thickness: 2px; }

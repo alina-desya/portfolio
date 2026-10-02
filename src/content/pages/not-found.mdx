@@ -1,0 +1,27 @@
+---
+# The "page not found" (404) page, written as a mini troubleshooting guide.
+title: Page not found
+description: This page doesn't exist. Here's how to find what you were looking for.
+eyebrow: Error 404
+headline: You've found a knowledge gap.
+lead: >-
+  This page isn't documented. Ironic, I know. The address you requested doesn't exist on this site, or the page has moved.
+
+# Rows of the troubleshooting table. `action: report` adds a "Report it" email link.
+errors:
+  - code: PAGE_NOT_FOUND
+    solution: Check the address for typos. Everything on this site lives under a short, lowercase path.
+  - code: LINK_OUTDATED
+    solution: The page may have moved during a restructure. Try one of the pages below.
+  - code: DOCUMENTATION_DEBT
+    solution: Still stuck? Every broken link is a small piece of documentation debt, and I'd like to fix it.
+    action: report
+
+pagesTitle: Popular pages
+
+# One-line newsletter hint below the popular pages. The link is `links.newsletter` in src/site.config.ts.
+newsletterHint:
+  lead: Into gaps like this one?
+  text: I write about the ones in documentation and knowledge systems in The Knowledge Gap, my LinkedIn newsletter.
+  linkLabel: Subscribe
+---
