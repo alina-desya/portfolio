@@ -6,7 +6,7 @@ export const site = {
   tagline:
     'I build documentation systems for product and engineering teams: from end-user documentation to API docs, developer guides, and AI-ready knowledge bases.',
   description:
-    'Portfolio of Alina Desiatnikova — Senior Technical Writer & Knowledge Architect. Projects, writing samples, talks, and articles.',
+    'Alina Desiatnikova, Senior Technical Writer & Knowledge Architect. Documentation systems, API docs, and AI-ready knowledge bases for product teams.',
   photo: '/images/headshot.jpg',
   email: 'alina.desyatnikova@gmail.com',
   cv: '/files/Alina-Desiatnikova-CV.pdf', // phone number removed; replace this file to update the CV
