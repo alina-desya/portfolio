@@ -3,7 +3,6 @@
 export interface Talk {
   title: string;
   event: string;
-  upcoming?: boolean;
   date?: string | number;
   location?: string;
   host?: string;
@@ -26,7 +25,6 @@ const ytId = embed ? youtubeId(t.video) : null;
 
 <article class="talk">
   <div class="meta">
-    {t.upcoming && <span class="badge">Upcoming</span>}
     {t.date && <span>{t.date}</span>}
   </div>
   <div class="body">
@@ -58,7 +56,6 @@ const ytId = embed ? youtubeId(t.video) : null;
 <style>
   .talk { display: grid; grid-template-columns: 130px 1fr; gap: 24px; padding: 24px 0; border-top: 1px solid var(--border); }
   .meta { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; font-size: 0.88rem; color: var(--muted); }
-  .badge { font-weight: 600; color: var(--accent); background: var(--accent-soft); padding: 2px 10px; border-radius: 999px; }
   h3 { margin-bottom: 4px; }
   .event { color: var(--muted); margin-bottom: 8px; }
   .event strong { color: var(--text); font-weight: 600; }

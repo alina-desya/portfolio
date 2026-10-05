@@ -1,5 +1,4 @@
 // Everything personal lives here — edit this file first.
-// Items marked TODO are placeholders.
 export const site = {
   name: 'Alina Desiatnikova',
   role: 'Senior Technical Writer & Knowledge Architect',
