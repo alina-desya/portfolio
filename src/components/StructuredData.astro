@@ -1,0 +1,41 @@
+---
+// Structured data (JSON-LD): tells search engines and AI tools, in machine-readable form,
+// who you are and what this site is. Added to every page by Base.astro.
+// Everything comes from site.config.ts and about.mdx, so there is nothing to edit here.
+import { site } from '../site.config';
+import { frontmatter as about } from '../content/pages/about.mdx';
+
+const siteUrl = new URL('/', Astro.site).href;
+const personId = `${siteUrl}#person`;
+
+const data = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person',
+      '@id': personId,
+      name: site.name,
+      alternateName: site.alternateNames,
+      jobTitle: site.role,
+      description: site.description,
+      url: siteUrl,
+      image: new URL(site.photo, Astro.site).href,
+      email: `mailto:${site.email}`,
+      address: { '@type': 'PostalAddress', addressLocality: site.location.city, addressCountry: site.location.country },
+      knowsAbout: about.skills.map((s: string) => s.trim()),
+      sameAs: [site.links.linkedin, site.links.github, ...site.profiles],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${siteUrl}#website`,
+      url: siteUrl,
+      name: site.name,
+      inLanguage: 'en',
+      author: { '@id': personId },
+      publisher: { '@id': personId },
+    },
+  ],
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(data)} />
