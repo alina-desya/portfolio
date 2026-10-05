@@ -27,6 +27,7 @@ const imageUrl = new URL(image, Astro.site).href;
     <meta name="description" content={description} />
     {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonicalUrl} />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
 
     <!-- Link previews (LinkedIn, Slack, etc.) -->
     <meta property="og:type" content="website" />
