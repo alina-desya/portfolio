@@ -10,6 +10,9 @@ export const site = {
   description:
     'Alina Desiatnikova, Senior Technical Writer & Knowledge Architect. Documentation systems, API docs, and AI-ready knowledge bases for product teams.',
   photo: '/images/headshot.jpg',
+  // Landscape card (1200×630) shown when someone shares a link to the site on LinkedIn, Slack, etc.
+  // It contains a copy of your photo: regenerate it if you change the headshot.
+  ogImage: '/images/og-card.jpg',
   email: 'alina.desyatnikova@gmail.com',
   cv: '/files/Alina-Desiatnikova-CV.pdf', // phone number removed; replace this file to update the CV
   links: {
