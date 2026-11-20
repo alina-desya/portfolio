@@ -1,10 +1,13 @@
-# Builds the site and publishes it to GitHub Pages on every push to main.
+# Builds the site, tests it, and publishes it to GitHub Pages on every push to main.
+# If the tests fail (broken links, placeholder text, photo metadata, ...), nothing is published.
+# Pull requests are built and tested too, but never published.
 # One-time setup: repo Settings → Pages → Source: "GitHub Actions".
 name: Deploy to GitHub Pages
 
 on:
   push:
     branches: [main]
+  pull_request:
   workflow_dispatch:
 
 permissions:
@@ -17,10 +20,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: withastro/action@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Test the site (links, SEO basics, sitemap, photo metadata)
+        run: npm test
+      - uses: actions/upload-pages-artifact@v3
+        if: github.event_name != 'pull_request'
+        with:
+          path: dist
+
   deploy:
+    if: github.event_name != 'pull_request'
     needs: build
     runs-on: ubuntu-latest
     environment:

@@ -40,8 +40,24 @@ Each page's short text (headline, intro, lists) is in the fields at the top of i
 
 For projects and samples, copy an existing file in the same folder and change the fields at the top.
 
+## Testing
+
+```bash
+npm run check
+```
+
+Builds the site and runs `scripts/check-site.mjs`, which verifies:
+
+- every internal link, image, and in-page anchor works, and external links still respond (LinkedIn blocks automated checks, so its links are skipped)
+- every page has a title, one `<h1>`, a meta description, a canonical URL, a link-preview image, and valid structured data
+- no placeholder text (TODO, lorem ipsum, example.com) is visible
+- the sitemap lists only real, public pages, and hidden pages (MexiDocs, speaker kit) are not published
+- no photo contains hidden metadata such as GPS location, and no file is oversized
+
+Errors (✗) fail the run; warnings (⚠) don't. Use `npm test -- --no-external` after a build to skip external links (faster, works offline).
+
 ## Deploy
 
-Every push to `main` publishes the site via GitHub Actions (`.github/workflows/deploy.yml`). A sitemap is generated automatically at `/sitemap-index.xml`.
+Every push to `main` builds the site, runs the tests above, and only publishes if they pass (`.github/workflows/deploy.yml`). Pull requests are tested but not published. A sitemap is generated automatically at `/sitemap.xml`.
 
 Keep `public/googleb250fb346a0194a8.html`: it verifies the site in Google Search Console.

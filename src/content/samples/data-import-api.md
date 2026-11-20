@@ -2,8 +2,8 @@
 title: "Data import API"
 kind: API guide
 summary: >-
-  A developer guide to migrating customers, accounts, and transactions to a banking platform: the import flow,
-  statuses, JSON structures, and how to verify and retry an import.
+  A developer guide to migrating customers, accounts, and transactions to a banking platform: import flow,
+  statuses, JSON structures, and retries.
 # What a hiring manager should notice. Shown at the top of the sample page.
 highlights:
   - Conceptual overview before the tasks, so developers understand the flow first
